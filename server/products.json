@@ -1,0 +1,86 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "pname": "Veg Spicy Panner Pizza",
+      "price": 680,
+      "url": "/images/pizzaE1.webp"
+    },
+    {
+      "id": 2,
+      "pname": "Veg Sweet Corn Pizza",
+      "price": 720,
+      "url": "/images/pizzaE2.webp"
+    },
+    {
+      "id": 3,
+      "pname": "Veg Fiesta Pizza",
+      "price": 710,
+      "url": "/images/pizzaE3.webp"
+    },
+    {
+      "id": 4,
+      "pname": "Veg Exotica Pizza",
+      "price": 690,
+      "url": "/images/pizzaE4.webp"
+    },
+    {
+      "id": 5,
+      "pname": "Veg Spicy Panner Pizza",
+      "price": 680,
+      "url": "/images/pizzaE5.webp"
+    },
+    {
+      "id": 6,
+      "pname": "Spinach Pepper Roasted Pizza",
+      "price": 670,
+      "url": "/images/pizzaE6.webp"
+    },
+    {
+      "id": 7,
+      "pname": "Aussies Veg Pizza",
+      "price": 680,
+      "url": "/images/pizzaE7.webp"
+    },
+    {
+      "id": 8,
+      "pname": "Chicken Mexican Pizza",
+      "price": 790,
+      "url": "/images/pizzaE8.webp"
+    },
+    {
+      "id": 9,
+      "pname": "Chicken pizza",
+      "price": 760,
+      "url": "/images/pizzaE9.webp"
+    },
+    {
+      "id": 10,
+      "pname": "Chicken Sweet corn pizza",
+      "price": 810,
+      "url": "/images/pizzaE10.webp"
+    },
+    {
+      "id": 11,
+      "pname": "Merry Panner pizza",
+      "price": 670,
+      "url": "/images/pizzaE11.webp"
+    }
+  ],
+  "userinfo": [
+    {
+      "username": "yashwanth",
+      "email": "mudili@gmail.com",
+      "contact": "9032717402",
+      "password": "yash@1992",
+      "id": 1
+    },
+    {
+      "username": "venkat",
+      "email": "mudiliyashwanth@gmail.com",
+      "contact": "9032717402",
+      "password": "yash@1992",
+      "id": 2
+    }
+  ]
+}

@@ -1,24 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Homebanner from './components/Homebanner';
+import Loginpage from './components/Loginpage';
+import Homepage from './components/Homepage';
+import Signup from './components/Signup';
+import Navigation from './components/LoggedPages/Navigation';
+import Menu from './components/LoggedPages/Menu';
+import { useContext, useEffect, useState } from 'react';
+import { createContext } from 'react';
+import Cart from './components/LoggedPages/Cart';
+
+export const cartCount = createContext();
+export const userDetail = createContext();
 
 function App() {
+  const [count, setCount] = useState([]);
+  const [userName,setuserName] = useState([]);
+
+  const onAdd = (data) => {
+    setCount(data);
+  }
+
+  const onChangeUser = (uname) =>{
+    setuserName(uname);
+  }
+
+  useEffect(()=>{
+    if(localStorage.getItem("mylocal") != undefined){
+      let array = JSON.parse(localStorage.getItem("mylocal"));
+      setCount(array)
+    }
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <cartCount.Provider value={{ count, onAdd }}>
+        <userDetail.Provider value = {{userName,setuserName}}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Homepage />}></Route>
+            <Route path="/login" element={<Loginpage />}></Route>
+            <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/login/home" element={<Navigation />}>
+              <Route path='menu' element={<Menu />}></Route>
+              <Route path="cart" element={<Cart/>}></Route>
+            </Route>
+          </Routes>
+        </Router>
+        </userDetail.Provider>
+      </cartCount.Provider>
+    </>
   );
 }
 
