@@ -9,7 +9,8 @@ import Menu from './components/LoggedPages/Menu';
 import { useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import Cart from './components/LoggedPages/Cart';
-
+import Creditcard from './components/LoggedPages/Creditcard';
+import Success from './components/LoggedPages/Success';
 export const cartCount = createContext();
 export const userDetail = createContext();
 
@@ -35,7 +36,7 @@ function App() {
   return (
     <>
       <cartCount.Provider value={{ count, onAdd }}>
-        <userDetail.Provider value = {{userName,setuserName}}>
+        <userDetail.Provider value = {{userName,onChangeUser}}>
         <Router>
           <Routes>
             <Route path="/" element={<Homepage />}></Route>
@@ -44,6 +45,8 @@ function App() {
             <Route path="/login/home" element={<Navigation />}>
               <Route path='menu' element={<Menu />}></Route>
               <Route path="cart" element={<Cart/>}></Route>
+              <Route path="credit" element={<Creditcard/>}></Route>
+              <Route path="success" element={<Success/>}></Route>
             </Route>
           </Routes>
         </Router>

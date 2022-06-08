@@ -1,35 +1,75 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { cartCount } from '../../App';
+import { orderValue } from './Navigation';
 import { getProductById } from '../../config/Myservices';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
+    const navigate = useNavigate();
     const { count, onAdd } = useContext(cartCount);
-
+    const { order, onValueChange } = useContext(orderValue);
     const items = JSON.parse(localStorage.getItem('mylocal'));
     const [data, setData] = useState([]);
+    let [cprice,setcprice] = useState(0);
 
     useEffect(() => {
-        if(localStorage.getItem('myCart')!= undefined){
+        if (localStorage.getItem('myCart') != undefined) {
             let dataItems = JSON.parse(localStorage.getItem('myCart'));
             setData(dataItems);
         }
     }, [])
 
-    const delProduct = (id)=> {
-        let array = JSON.parse(localStorage.getItem('myCart'))
-        console.log(array)
-        array.forEach(element => {
-            if(element.id === id){
-                
-            }
-        });
-        if(array.id === id){
-            let num = array.indexOf(id);
-            let arr = JSON.parse(localStorage.getItem('myCart'));
-            let newarr = arr.splice(num,1);
-            let strarr = JSON.stringify(arr);
-            localStorage.setItem("myCart",strarr);
+    useEffect(()=>{
+        if(localStorage.getItem('myCart') != undefined){
+            let dataItems = JSON.parse(localStorage.getItem('myCart'));
+        let x = 0; 
+            dataItems.forEach(element => {
+                x = x+element.price
+            });
+            setcprice(x);
+        onValueChange(x);
         }
+        
+    })
+
+    const delProduct = (id) => {
+        let array = JSON.parse(localStorage.getItem('myCart'))
+        if (array.some(element =>
+            element.id === id
+        )) {
+            let i = 0;
+            let num;
+            array.forEach(element => {
+                if (element.id === id) {
+                    num = i
+                }
+                i = i + 1;
+            });
+            let localArray = JSON.parse(localStorage.getItem("myCart"));
+            let newArr = localArray.splice(num, 1);
+            let strarr = JSON.stringify(localArray);
+            localStorage.setItem("myCart", strarr);
+
+           
+
+            let localArray1 = JSON.parse(localStorage.getItem("mylocal"));
+            let newArr1 = localArray1.splice(num,1);
+            let strarr1 = JSON.stringify(localArray1);
+            localStorage.setItem("mylocal",strarr1);
+            onAdd(localArray1);
+
+            let dataItems = JSON.parse(localStorage.getItem('myCart'));
+            setData(dataItems);
+        }
+    }
+
+    const checkout = ()=> {
+        if(cprice === 0){
+            alert("please add items to cart");
+        }else{
+            navigate("/login/home/credit")
+        }
+        
     }
 
     return (
@@ -41,20 +81,42 @@ export default function Cart() {
                 <table className='table table-striped'>
                     <thead>
                         <tr>
+                            <th>Image</th>
                             <th>Pizza</th>
+                            
                             <th>price</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((e,i)=>
-                        <tr key={i}>
-                            <td>{e.pname}</td>
-                            <td>{e.price}</td>
+                        {data.map((e, i) =>
+                            <tr key={i}>
+                                <td>
+                                <img src={e.url} alt={e.pname} width="50"/>
+                                </td>
+                                <td>{e.pname}
+                                
+                                </td>
+                                
+                                <td>{e.price}</td>
+                                <td>
+                                    <button className='btn btn-danger' onClick={() => delProduct(e.id)}>Remove</button>
+                                </td>
+                            </tr>
+                        )}
+                        <tr>
+                            <td >
+                            Total Amount: 
+                            </td>
+                            <td rowSpan="3">
+                            
+                            </td>
                             <td>
-                                <button className='btn btn-danger' onClick={() => delProduct(e.id)}>Remove</button>
+                            {cprice}
+                            </td>
+                            <td>
+                                <button className='btn btn-secondary' onClick={checkout}>Check out </button>
                             </td>
                         </tr>
-                        )}
                     </tbody>
                 </table>
             </div>

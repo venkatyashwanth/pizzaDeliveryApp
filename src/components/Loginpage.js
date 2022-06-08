@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { userDetail } from '../App';
 
 export default function Loginpage() {
-    const {userName,setuserName} = useContext(userDetail);
+    const {userName,onChangeUser} = useContext(userDetail);
     const [userInfo,setuserInfo] = useState();
     const navigate = useNavigate();
     const {
@@ -31,7 +31,7 @@ export default function Loginpage() {
                 function checkAdult(age) {
                     return age.email === data.email && age.password === data.password
                 }
-                setuserName(filteredArray[0].username)
+                onChangeUser(filteredArray[0].username)
                 navigate("/login/home/menu")
               }
             else{
